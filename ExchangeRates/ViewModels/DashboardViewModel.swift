@@ -46,7 +46,7 @@ class DashboardViewModel {
       delegate?.fetchStatus(.readyToShowRateList)
     }
   }
-  var delegate:DashboardViewModelDelegate?
+  weak var delegate:DashboardViewModelDelegate?
   private var loadingCombos:Int = 0 {
     didSet{
       guard loadingCombos == 0 else { return }
