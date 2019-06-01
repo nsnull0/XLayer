@@ -2,32 +2,30 @@ stages:
   - unit_tests
   - test_flight
 
-before_script:
-  - gem install bundler
-  - bundle install
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
 
 unit_tests:
-  dependencies: []
   stage: unit_tests
   artifacts:
     paths:
       - fastlane/screenshots
       - fastlane/logs
-    script:
+  script:
       - fastlane ios test
-    tags:
+  tags:
       - ios
 
 test_flight_build:
-  dependencies: []
   stage: test_flight
   artifacts:
     paths:
       - fastlane/screenshots
       - fastlane/logs
   script:
-    - fastlane ios beta
+      - fastlane ios beta
   tags:
-    - ios
+      - ios
   only:
-     - /^release-.*$/
+      - /^release-.*$/
