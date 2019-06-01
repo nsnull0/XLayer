@@ -16,12 +16,14 @@
 
 ## api from :  https://currencylayer.com/
 
+### Network Extension Model CopyRight
+- Inspired from https://github.com/michaelhenry/RxRetroSwift
+
 ### Simple Version Screenshot
 <img align="left" src="https://raw.github.com/nsnull0/XLayer/master/ss-1.png" alt="iPhoneX" width="260" />
 <img align="left" src="https://raw.github.com/nsnull0/XLayer/master/ss-2.png" alt="iPhoneX" width="260" />
 <img align="left" src="https://raw.github.com/nsnull0/XLayer/master/ss-3.png" alt="iPhoneX" width="260" />
 
 
-### Network Extension Model CopyRight
-- Inspired from https://github.com/michaelhenry/RxRetroSwift
+
 
