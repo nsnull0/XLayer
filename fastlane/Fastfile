@@ -1,0 +1,21 @@
+
+fastlane_require 'cgi'
+
+default_platform(:ios)
+  
+platform :ios do
+  
+  def app_scheme
+    return ENV["APP_SCHEME"] || "ExchangeRates"
+  end
+
+  desc "Test Run"
+  lane :test do
+    scan(
+      clean: false,
+      scheme: app_scheme,
+      device: "iPhone X",
+      derived_data_path: "DerivedData",
+    )
+  end
+end
