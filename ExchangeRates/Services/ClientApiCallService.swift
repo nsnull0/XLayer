@@ -18,20 +18,59 @@ class ClientApiCallService {
   private(set) var config:NSDictionary!
   
   init() {
-    refresh()
+    _ = refresh()
   }
   
-  func refresh() {
-    if let path = Bundle.main.path(forResource: "Api-Params", ofType: "plist") {
-      if let root = NSDictionary(contentsOfFile: path){
-        apiParam = root
+  private func copyToDocumentDirectory() -> Bool {
+    if let dirBundle = Bundle.main.path(forResource: "Api-Params", ofType: "plist") {
+      if let root = NSDictionary(contentsOfFile: dirBundle) {
+        let data:NSMutableDictionary = NSMutableDictionary(dictionary: root)
+        do {
+          let dir = documentAPIParamsDirectory()
+          try data.write(to: dir)
+        }catch {
+          print("error write api param \(error)")
+          return false
+        }
       }
     }
-    if let path = Bundle.main.path(forResource: "App-Config", ofType: "plist") {
-      if let root = NSDictionary(contentsOfFile: path){
-        config = root
+    
+    if let dirBundle = Bundle.main.path(forResource: "App-Config", ofType: "plist") {
+      if let root = NSDictionary(contentsOfFile: dirBundle) {
+        let data:NSMutableDictionary = NSMutableDictionary(dictionary: root)
+        do {
+          let dir = documentAPIConfigDirectory()
+          try data.write(to: dir)
+        }catch {
+          print("error write config \(error)")
+          return false
+        }
       }
     }
+    return refresh()
+  }
+  
+  func refresh() -> Bool {
+    if let rootParam = NSDictionary(contentsOf: documentAPIParamsDirectory()),
+    let rootConfig = NSDictionary(contentsOf: documentAPIConfigDirectory()){
+      config = rootConfig
+      apiParam = rootParam
+    }else{
+      return copyToDocumentDirectory()
+    }
+    return true
+  }
+  
+  func documentAPIParamsDirectory() -> URL {
+    let dirDocPath = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    let dirPath = dirDocPath.appendingPathComponent("Api-Params").appendingPathExtension("plist")
+    return dirPath
+  }
+  
+  func documentAPIConfigDirectory() -> URL {
+    let dirDocPath = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    let dirPath = dirDocPath.appendingPathComponent("App-Config").appendingPathExtension("plist")
+    return dirPath
   }
   
   func isReadyToUse() -> Bool{

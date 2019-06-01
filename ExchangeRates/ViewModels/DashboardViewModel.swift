@@ -108,9 +108,12 @@ class DashboardViewModel {
     if let _apiParam = clientApi.apiParam {
       let data:NSMutableDictionary = NSMutableDictionary(dictionary: _apiParam)
       data.setValue(selectedSource, forKey: "source")
-      let dirPath = Bundle.main.path(forResource: "Api-Params", ofType: "plist")
-      data.write(toFile: dirPath!, atomically: true)
-      clientApi.refresh()
+      do {
+        try data.write(to: clientApi.documentAPIParamsDirectory())
+      }catch {
+        print("error write \(error)")
+      }
+      _ = clientApi.refresh()
     }
     if let _sourceRate = clientApi.apiParam.value(forKey: "source") as? String {
       loadingCombos = 1

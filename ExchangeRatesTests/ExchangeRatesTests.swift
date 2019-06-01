@@ -16,6 +16,11 @@ class ExchangeRatesTests: XCTestCase {
     XCTAssertTrue(clientService.isReadyToUse())
   }
   
+  func testClientServiceRefresh() {
+    let clientService = ClientApiCallService.shared
+    XCTAssertTrue(clientService.refresh())
+  }
+  
   func testClientServiceToCallList() {
     let clientService = ClientApiCallService.shared
     let expectation = XCTestExpectation(description: "test call list api")

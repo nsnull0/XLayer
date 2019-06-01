@@ -50,6 +50,7 @@ class DashboardViewController: UIViewController {
     listCurrencyRateView.configure {
       $0.delegate = self
       $0.dataSource = self
+      $0.showsVerticalScrollIndicator = false
       $0.register(CurrencyRateCellCollectionViewCell.self)
     }
     listCurrencyCodeDropDownView.configure {
@@ -79,12 +80,7 @@ class DashboardViewController: UIViewController {
   }
   
   @objc private func timerRefresh(){
-    if let path = Bundle.main.path(forResource: "Api-Params", ofType: "plist") {
-      if let root = NSDictionary(contentsOfFile: path){
-        viewModel.refresh(clientApi: ClientApiCallService.shared,
-                          selectedSource: root.value(forKey: "source") as? String ?? "")
-      }
-    }
+    _ = ClientApiCallService.shared.refresh()
   }
 }
 
