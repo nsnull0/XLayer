@@ -1,0 +1,24 @@
+language: objective-c
+osx_image: xcode10.2
+
+before_install:
+  echo -e "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netrc
+
+install:
+  - bundle install
+
+jobs:
+  include:
+    - stage:
+        - test
+      if: branch != master
+      script: fastlane ios test
+    - stage: 
+        - beta
+      if: branch = /release_*/
+      script: fastlane ios beta
+    
+env:
+  global:
+  - secure: mMnE4QoWIWEtK/dEDbwcIHFnuZYwmY42nAMRGbQ55Svxr5pUZw8edLJ30IDwxFDeH/+cVMVD4rE4mwhRm8eRaT1Clris7+WAjMnBkBlB7H8BeoJ7LQV7bLs0IypwIv3JflTcR9saRKxDLXFi0JH7HSqpKK62OUHB1dL7ZoV4CUaMZABM1OGgW81ezrNtWPuAC1eCVIxnihVBdmDSxKEM8YZQW8NUaqjuW2Ad5/dpBdEdv6c9jv4k5dS/9lz4qkmCL2atze8GQpS3PgCXp3PHajGxvlmpQNLtwmTMUxrnHYfav2f3ljG4U2AtE42CfJ/gLq2AG8RPx5y3FcNabs3GcmqywtxnOeWNvWfP+9lR61A31bTzOOcQg0FYx5br00akcJ1I4dHtbpMcdirOaessW41ICAQRNgb2T/BZ31kIhn9xExUpX1WzjSSN5IqE0DBP2dVmD2+enW3Mvy4Fy3cbecswF0S5TBA413ByoMW1ZAm3ejwIg1itlvFsVk3YanGC59jDm9ubknN5Y09ARPQtDm/kf9AeKr+yz9JAN5q437kCU69Akg7xla+DsBDIZZbxhup96XX/pwHCS1+A8AOgwgezSNotw+dpZzrz9T+c6DsQOr5HUFODp8iHGyeNBMoa/YGrnLDDXtl6N2nczZylaQNT1oRbvV8WbNqpjcv7XMM=
+  - secure: maMhuhzFUq7rhYnybHShY9fU93old+2ukCi8zKT4qdu213Cz3lbY+qMLGNRZKM3PmP8BvfEW0zDxA3SOHqD256k9yumkV6747nY4SdYKfIywbgX8nB4QMwNLZPsh4eefc8r45VS+NVbF8OXgfU5x65Od1R9PEkMtQ4SAiNTKhgLAxj+C/3q2PwW+oJlbc33F0hd71gXBVM/aFhFZ3mX8ctNsvQVQTC0uDnj2HBXwTDmum52YweXcOjCatN6cbBK4e5JENbTjXr7lUvG5jcfaQRVlXRi/JjnCgEieszs0IrNFSEd/Aiup+rGdMboH5zU5ALV+IMVP7cYHaKjbkQ+uFG9HTiYXOdhrl6G2Uq45FpXQFHlWQDzD6Gbr7jSgQxURC4gTZ58sfTOYg/kJ2NU/ShinofP24GN/9deEuGxYuAu6tFzULbtLWIq4vptwV5fkUI7WgJzEk63J90sQ1q/4YApZVre1jVabEQREAGWmL+8H356thH8BNuM0H4qdISuAP7CbvnBrKKgpgSL3h5gnAIS6IhhJq2wb/3tDEB8eGigOavB1Qakk49tFGbLh5E3q+LYsKADvWiEbMZFPrHmU2MhniqZNdrTQ2C8v5yeCIMI08XNV8lGGsSFGkeoU8O4DrH+TGLcGk+Ano58aON7K3F1Bvu8B7EeIgylYOIzBVCk=

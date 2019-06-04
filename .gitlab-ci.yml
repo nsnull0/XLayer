@@ -16,6 +16,7 @@ unit_tests:
       - fastlane ios test
   tags:
       - ios
+      - gitlab-org
 
 test_flight_build:
   stage: test_flight

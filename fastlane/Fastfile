@@ -5,10 +5,38 @@ default_platform(:ios)
   
 platform :ios do
   
+  before_all do
+  	setup_travis
+  end
+
   def app_scheme
     return ENV["APP_SCHEME"] || "ExchangeRates"
   end
 
+  def app_identifier
+   	return ENV['APP_IDENTIFIER'] || prompt(text: "App Identifier:")
+  end
+
+  def team_id
+    return ENV["MATCH_TEAM_ID"] || prompt(text: "Team ID:")
+  end
+
+  def output_build_directory
+    return "Build"
+  end
+
+  def itc_email
+    return ENV["ITUNESCONNECT_EMAIL"] || prompt(text: "ITC Email:")
+  end
+
+  def app_apple_id
+    return ENV["APP_APPLE_ID"] || "1466618690"
+  end
+
+  def build_number
+    return ENV['TRAVIS_BUILD_NUMBER'] || 2
+  end
+  
   desc "Test Run"
   lane :test do
     scan(
@@ -16,6 +44,64 @@ platform :ios do
       scheme: app_scheme,
       device: "iPhone X",
       derived_data_path: "DerivedData",
+    )
+  end
+
+  desc "beta version"
+  lane :beta do
+  	update_app_xlayer(
+      app_identifier: app_identifier,
+      team_id: team_id
+    )
+  	match( 
+  	  app_identifier: app_identifier,
+  	  type: "appstore",
+  	)
+    increment_build_number(
+      build_number: build_number
+    )
+  	gym(
+      derived_data_path: "DerivedData",
+      configuration: "Release",
+      silent: true,
+      clean: true,
+      output_directory: output_build_directory,
+      output_name:  + "XLayerYW.ipa",
+      scheme: "ExchangeRates",
+      export_options: {
+        provisioningProfiles: {
+          app_identifier => "match AppStore #{app_identifier}"
+        }
+      }
+  	)
+
+    beta_app_description = File.read("../metadata/beta/beta_app_description.txt")
+    beta_app_changelog = File.read("../metadata/beta/beta_app_changelog.txt")
+
+  	pilot(
+      skip_waiting_for_build_processing: true,
+      username: itc_email,
+      app_identifier:  app_identifier,
+      apple_id: app_apple_id,
+      itc_provider: team_id,
+      beta_app_description: beta_app_description,
+      changelog: beta_app_changelog,
+    )
+  end
+
+  private_lane :update_app_xlayer do |options|
+    plist_path = "./ExchangeRates/Info.plist"
+    update_app_identifier(
+      app_identifier: options[:app_identifier],
+      plist_path: plist_path
+    )
+    update_info_plist(
+      plist_path: plist_path,
+      display_name: options[:display_name] || "XLayerYW"
+    )
+    update_project_team(
+      path: "ExchangeRates.xcodeproj",
+      teamid: options[:team_id]
     )
   end
 end
