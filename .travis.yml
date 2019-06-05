@@ -11,7 +11,7 @@ jobs:
   include:
     - stage:
         - test
-      if: branch != master
+      if: branch != /release_*/
       script: fastlane ios test
     - stage: 
         - beta
