@@ -51,6 +51,7 @@ class DashboardViewController: UIViewController {
       $0.delegate = self
       $0.dataSource = self
       $0.showsVerticalScrollIndicator = false
+      $0.showsHorizontalScrollIndicator = false
       $0.register(CurrencyRateCellCollectionViewCell.self)
     }
     listCurrencyCodeDropDownView.configure {
@@ -101,7 +102,7 @@ extension DashboardViewController:UICollectionViewDelegate, UICollectionViewDele
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: UIScreen.main.bounds.size.width / 4, height: 60)
+    return CGSize(width: 100, height: 60)
   }
 }
 

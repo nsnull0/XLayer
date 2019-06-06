@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -76,9 +76,12 @@
                                 </connections>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="k4h-OZ-a59">
-                                <rect key="frame" x="16" y="220" width="343" height="447"/>
+                                <rect key="frame" x="0.0" y="411" width="375" height="212"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="4" id="Qjv-gi-0Xa">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="212" id="ttJ-ab-MPW"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="4" id="Qjv-gi-0Xa">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -118,19 +121,19 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="k4h-OZ-a59" firstAttribute="top" secondItem="x73-pX-NAd" secondAttribute="bottom" constant="24" id="1TL-pp-iVJ"/>
+                            <constraint firstItem="k4h-OZ-a59" firstAttribute="top" relation="greaterThanOrEqual" secondItem="x73-pX-NAd" secondAttribute="bottom" constant="124" id="1TL-pp-iVJ"/>
                             <constraint firstItem="DP5-EF-tIE" firstAttribute="trailing" secondItem="x73-pX-NAd" secondAttribute="trailing" id="3bT-RF-mPz"/>
                             <constraint firstItem="DP5-EF-tIE" firstAttribute="leading" secondItem="x73-pX-NAd" secondAttribute="leading" id="8No-LX-IMQ"/>
                             <constraint firstItem="qho-1V-F7j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9B3-Lk-q1M"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iEX-cq-jAW" secondAttribute="trailing" constant="16" id="AeE-yX-6CU"/>
                             <constraint firstItem="iEX-cq-jAW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="Bca-Ah-uNA"/>
                             <constraint firstItem="iEX-cq-jAW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="C6I-yB-KaQ"/>
-                            <constraint firstItem="k4h-OZ-a59" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="DWv-w0-NfL"/>
+                            <constraint firstItem="k4h-OZ-a59" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DWv-w0-NfL"/>
                             <constraint firstItem="x73-pX-NAd" firstAttribute="top" secondItem="iEX-cq-jAW" secondAttribute="bottom" constant="12" id="F7f-mO-Lbv"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="k4h-OZ-a59" secondAttribute="trailing" constant="16" id="JxN-zE-deR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="k4h-OZ-a59" secondAttribute="trailing" id="JxN-zE-deR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x73-pX-NAd" secondAttribute="trailing" constant="16" id="Tkv-nB-56W"/>
                             <constraint firstItem="DP5-EF-tIE" firstAttribute="top" secondItem="x73-pX-NAd" secondAttribute="bottom" id="YHN-Wu-RmU"/>
-                            <constraint firstAttribute="bottom" secondItem="k4h-OZ-a59" secondAttribute="bottom" id="YhD-nb-Lwy"/>
+                            <constraint firstAttribute="bottom" secondItem="k4h-OZ-a59" secondAttribute="bottom" constant="44" id="YhD-nb-Lwy"/>
                             <constraint firstItem="x73-pX-NAd" firstAttribute="width" secondItem="iEX-cq-jAW" secondAttribute="width" multiplier="1:3" id="sF2-6c-UWA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qho-1V-F7j" secondAttribute="trailing" id="uWU-Xr-gPP"/>
                             <constraint firstItem="qho-1V-F7j" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yDq-A1-HZ6"/>
