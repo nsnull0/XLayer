@@ -21,8 +21,16 @@ class DashboardViewController: UIViewController {
   @IBOutlet private weak var loadingLabel:UILabel!
   @IBOutlet private weak var loadingIndicator:UIActivityIndicatorView!
   @IBOutlet private weak var loadingViewTopConstraint:NSLayoutConstraint!
+  @IBOutlet private weak var listCurrencyRateTopSpace:NSLayoutConstraint!
+  @IBOutlet private weak var simpleButtonSelection:UIButton!
+  @IBOutlet private weak var detailedButtonSelection:UIButton!
+  @IBOutlet private weak var switchViewTop:SwitchView!
+  @IBOutlet private weak var switchViewBot:SwitchView!
   
   private var viewModel:DashboardViewModel!
+  private var constantTopCurrency:CGFloat {
+    return UIScreen.main.bounds.size.height - 444
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,7 +47,7 @@ class DashboardViewController: UIViewController {
       }
     }
     
-    
+    listCurrencyRateTopSpace.constant = constantTopCurrency
     
     loadingLabel.configure {
       $0.text = "FETCH_LIST".localized
@@ -52,6 +60,8 @@ class DashboardViewController: UIViewController {
       $0.dataSource = self
       $0.showsVerticalScrollIndicator = false
       $0.showsHorizontalScrollIndicator = false
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
       $0.register(CurrencyRateCellCollectionViewCell.self)
     }
     listCurrencyCodeDropDownView.configure {
@@ -74,6 +84,18 @@ class DashboardViewController: UIViewController {
       $0.layer.borderWidth = 1
       $0.layer.borderColor = UIColor.black.cgColor
     }
+    simpleButtonSelection.configure{
+      $0.layer.borderWidth = 1
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.setTitle("SIMPLE_SELECTION_BUTTON_TITLE".localized, for: .normal)
+    }
+    detailedButtonSelection.configure{
+      $0.layer.borderWidth = 1
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.setTitle("DETAILED_SELECTION_BUTTON_TITLE".localized, for: .normal)
+    }
+    switchViewTop.isHidden = false
+    switchViewBot.isHidden = true
   }
   
   @IBAction func tapToPickSourceCurrencyCode(_ v:UITapGestureRecognizer) {
@@ -82,6 +104,11 @@ class DashboardViewController: UIViewController {
   
   @objc private func timerRefresh(){
     _ = ClientApiCallService.shared.refresh()
+  }
+  
+  @IBAction func tapSimpleType(_ btn:UIButton){
+    switchViewTop.isHidden = btn.tag == 1 ? true : false
+    switchViewBot.isHidden = btn.tag == 0 ? true : false
   }
 }
 
@@ -146,7 +173,7 @@ extension DashboardViewController:DashboardViewModelDelegate {
           guard let _self = self else { return }
           _self.loadingViewTopConstraint.constant = -60
           _self.loadingIndicator.stopAnimating()
-          _self.loadingLabel.text = "status code error \(statusCode)"
+          _self.loadingLabel.text =  String(format: "ERROR_WITH_STATUS", "\(statusCode)")
           _self.view.layoutIfNeeded()
         })
       }
@@ -189,6 +216,34 @@ extension DashboardViewController:DashboardViewModelDelegate {
       listCurrencyCodeDropDownView.reloadData()
     case .readyToShowRateList:
       listCurrencyRateView.reloadData()
+    }
+  }
+}
+
+extension DashboardViewController: UIScrollViewDelegate {
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    switch scrollView {
+    case listCurrencyRateView:
+      let targetedOffsetX = Int(targetContentOffset.pointee.x) % 108
+      if targetedOffsetX != 0 {
+        scrollView.scrollRectToVisible(CGRect(x: Int(targetContentOffset.pointee.x) - targetedOffsetX, y: 0,
+                                              width: 60, height: 60), animated: true)
+      }
+    default:
+      break
+    }
+  }
+  
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    switch scrollView {
+    case listCurrencyRateView:
+      let targetedOffsetX = Int(scrollView.contentOffset.x) % 108
+      if targetedOffsetX != 0 {
+        scrollView.scrollRectToVisible(CGRect(x: Int(scrollView.contentOffset.x) - targetedOffsetX, y: 0,
+                                              width: 60, height: 60), animated: true)
+      }
+    default:
+      break
     }
   }
 }

@@ -1,0 +1,14 @@
+/* 
+  localization.strings
+  ExchangeRates
+
+  Created by Yoseph Wijaya on 2019/06/08.
+  Copyright © 2019 olala. All rights reserved.
+*/
+"ERROR_CONFIG" = "Kesalahan Configuration";
+"ERROR_WITH_STATUS" = "Pengambilan data error %@";
+"FETCH_LIST_IN_PROGRESS" = "Memuat currency list";
+"FETCH_RATE_IN_PROGRESS" = "Memuat currency rate";
+"FETCH_LIST" = "Memulai pengambilan list";
+"DETAILED_SELECTION_BUTTON_TITLE" = "Detil";
+"SIMPLE_SELECTION_BUTTON_TITLE" = "Sederhana";

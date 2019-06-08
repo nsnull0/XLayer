@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10DFDC922ABCBBA00032B3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C10DFDCB22ABCBBA00032B3F /* Localizable.strings */; };
 		C19A21E1227470B2000F9B99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A21E0227470B2000F9B99 /* AppDelegate.swift */; };
 		C19A21E3227470B2000F9B99 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A21E2227470B2000F9B99 /* DashboardViewController.swift */; };
 		C19A21E6227470B2000F9B99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19A21E4227470B2000F9B99 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		C1EEECE02274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EEECDE2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift */; };
 		C1EEECE12274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1EEECDF2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib */; };
 		C1EEECE32274D9A00004D783 /* UICollectionView_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EEECE22274D9A00004D783 /* UICollectionView_Extension.swift */; };
+		C1FA668C22AC12B300B99C15 /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FA668B22AC12B300B99C15 /* SwitchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C10DFDCA22ABCBBA00032B3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C10DFDCC22ABCBD600032B3F /* ExchangeRates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExchangeRates.entitlements; sourceTree = "<group>"; };
+		C10DFDCE22ABD38500032B3F /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C19A21DD227470B2000F9B99 /* ExchangeRates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExchangeRates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C19A21E0227470B2000F9B99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C19A21E2227470B2000F9B99 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +90,7 @@
 		C1EEECDE2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		C1EEECDF2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyRateCellCollectionViewCell.xib; sourceTree = "<group>"; };
 		C1EEECE22274D9A00004D783 /* UICollectionView_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView_Extension.swift; sourceTree = "<group>"; };
+		C1FA668B22AC12B300B99C15 /* SwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,7 @@
 		C19A21DF227470B2000F9B99 /* ExchangeRates */ = {
 			isa = PBXGroup;
 			children = (
+				C10DFDCC22ABCBD600032B3F /* ExchangeRates.entitlements */,
 				C19A21E0227470B2000F9B99 /* AppDelegate.swift */,
 				C19A222522748587000F9B99 /* Services */,
 				C19A221622747461000F9B99 /* Interface Builders */,
@@ -145,6 +152,7 @@
 				C19A221E22748241000F9B99 /* Protocols */,
 				C19A2211227472C3000F9B99 /* Properties */,
 				C19A21EA227470B4000F9B99 /* Assets.xcassets */,
+				C10DFDCB22ABCBBA00032B3F /* Localizable.strings */,
 				C19A21EC227470B4000F9B99 /* LaunchScreen.storyboard */,
 				C19A21EF227470B4000F9B99 /* Info.plist */,
 				C19A21E7227470B2000F9B99 /* ExchangeRates.xcdatamodeld */,
@@ -242,6 +250,7 @@
 				C19A222822748805000F9B99 /* CurrencyCodePickerCell.xib */,
 				C1EEECDE2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift */,
 				C1EEECDF2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib */,
+				C1FA668B22AC12B300B99C15 /* SwitchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +328,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 0;
+							};
 						};
 					};
 					C19A21F3227470B4000F9B99 = {
@@ -340,6 +352,7 @@
 			knownRegions = (
 				en,
 				Base,
+				id,
 			);
 			mainGroup = C19A21D4227470B2000F9B99;
 			productRefGroup = C19A21DE227470B2000F9B99 /* Products */;
@@ -363,6 +376,7 @@
 				C19A222A22748805000F9B99 /* CurrencyCodePickerCell.xib in Resources */,
 				C19A221D227481D1000F9B99 /* App-Config.plist in Resources */,
 				C19A21EE227470B4000F9B99 /* LaunchScreen.storyboard in Resources */,
+				C10DFDC922ABCBBA00032B3F /* Localizable.strings in Resources */,
 				C19A21EB227470B4000F9B99 /* Assets.xcassets in Resources */,
 				C19A21E6227470B2000F9B99 /* Main.storyboard in Resources */,
 			);
@@ -397,6 +411,7 @@
 				C19A222222748411000F9B99 /* UIView_Extension.swift in Sources */,
 				C19A21E3227470B2000F9B99 /* DashboardViewController.swift in Sources */,
 				C19A22362274B4EC000F9B99 /* RequestCaller.swift in Sources */,
+				C1FA668C22AC12B300B99C15 /* SwitchView.swift in Sources */,
 				C19A223022748A0B000F9B99 /* ReusableViewProtocol.swift in Sources */,
 				C19A22242274849B000F9B99 /* String_Extension.swift in Sources */,
 				C19A223222748C7C000F9B99 /* ClientApiCallService.swift in Sources */,
@@ -441,6 +456,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C10DFDCB22ABCBBA00032B3F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C10DFDCA22ABCBBA00032B3F /* en */,
+				C10DFDCE22ABD38500032B3F /* id */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		C19A21E4227470B2000F9B99 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -464,6 +488,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -525,6 +550,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

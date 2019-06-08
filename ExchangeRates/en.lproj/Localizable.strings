@@ -1,0 +1,14 @@
+/* 
+  localization.strings
+  ExchangeRates
+
+  Created by Yoseph Wijaya on 2019/06/08.
+  Copyright © 2019 olala. All rights reserved.
+*/
+"ERROR_CONFIG" = "Config error has occured";
+"ERROR_WITH_STATUS" = "Fetch server error %@";
+"FETCH_LIST_IN_PROGRESS" = "Load currency list";
+"FETCH_RATE_IN_PROGRESS" = "Load currency rate";
+"FETCH_LIST" = "Start fetch currency list";
+"DETAILED_SELECTION_BUTTON_TITLE" = "Detailed";
+"SIMPLE_SELECTION_BUTTON_TITLE" = "Simple";

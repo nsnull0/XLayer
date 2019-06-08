@@ -118,35 +118,118 @@
                                     <constraint firstAttribute="bottom" secondItem="Dsz-QD-XmU" secondAttribute="bottom" constant="8" id="idp-aE-1bm"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cd-o6-TeM" userLabel="line border 1">
+                                <rect key="frame" x="32" y="140" width="1" height="271"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="8j0-D3-fH9"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-AL-6Pr" userLabel="line border 2">
+                                <rect key="frame" x="33" y="173.5" width="20" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="cqq-Qi-ypH"/>
+                                    <constraint firstAttribute="width" constant="20" id="prT-M4-17g"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dds-H9-ODr" userLabel="switch view top" customClass="SwitchView" customModule="ExchangeRates" customModuleProvider="target">
+                                <rect key="frame" x="53" y="154" width="30" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Ned-55-TPS"/>
+                                    <constraint firstAttribute="width" constant="30" id="xmG-l9-NOP"/>
+                                </constraints>
+                            </view>
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sL8-Q4-LZ3" userLabel="switch view bot" customClass="SwitchView" customModule="ExchangeRates" customModuleProvider="target">
+                                <rect key="frame" x="53" y="154" width="30" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="IhX-GC-Cvo"/>
+                                    <constraint firstAttribute="height" constant="40" id="cFU-ky-gBJ"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Rpy-pl-3ca">
+                                <rect key="frame" x="83" y="142" width="80" height="64"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Y5-1m-Gtx" userLabel="Normal">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="yt5-EX-wdK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapSimpleType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0t8-TS-YKM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6iN-DJ-ZKo" userLabel="Detailed">
+                                        <rect key="frame" x="0.0" y="34" width="80" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="REj-oX-N8w"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapSimpleType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dsp-74-bU0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="TRJ-xK-w70"/>
+                                    <constraint firstAttribute="height" constant="64" id="Zxb-ms-V7q"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="k4h-OZ-a59" firstAttribute="top" relation="greaterThanOrEqual" secondItem="x73-pX-NAd" secondAttribute="bottom" constant="124" id="1TL-pp-iVJ"/>
+                            <constraint firstItem="sL8-Q4-LZ3" firstAttribute="width" secondItem="Dds-H9-ODr" secondAttribute="width" id="1k4-MH-jRZ"/>
                             <constraint firstItem="DP5-EF-tIE" firstAttribute="trailing" secondItem="x73-pX-NAd" secondAttribute="trailing" id="3bT-RF-mPz"/>
+                            <constraint firstItem="Rpy-pl-3ca" firstAttribute="leading" secondItem="Dds-H9-ODr" secondAttribute="trailing" id="3mn-Em-pWQ"/>
                             <constraint firstItem="DP5-EF-tIE" firstAttribute="leading" secondItem="x73-pX-NAd" secondAttribute="leading" id="8No-LX-IMQ"/>
                             <constraint firstItem="qho-1V-F7j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9B3-Lk-q1M"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iEX-cq-jAW" secondAttribute="trailing" constant="16" id="AeE-yX-6CU"/>
                             <constraint firstItem="iEX-cq-jAW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="Bca-Ah-uNA"/>
+                            <constraint firstItem="dWL-AL-6Pr" firstAttribute="leading" secondItem="6cd-o6-TeM" secondAttribute="trailing" id="Bso-ar-suV"/>
                             <constraint firstItem="iEX-cq-jAW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="C6I-yB-KaQ"/>
                             <constraint firstItem="k4h-OZ-a59" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DWv-w0-NfL"/>
                             <constraint firstItem="x73-pX-NAd" firstAttribute="top" secondItem="iEX-cq-jAW" secondAttribute="bottom" constant="12" id="F7f-mO-Lbv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="k4h-OZ-a59" secondAttribute="trailing" id="JxN-zE-deR"/>
+                            <constraint firstItem="sL8-Q4-LZ3" firstAttribute="centerX" secondItem="Dds-H9-ODr" secondAttribute="centerX" id="MAW-ax-Fes"/>
+                            <constraint firstItem="6cd-o6-TeM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="Mg1-sv-MQY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x73-pX-NAd" secondAttribute="trailing" constant="16" id="Tkv-nB-56W"/>
+                            <constraint firstItem="sL8-Q4-LZ3" firstAttribute="height" secondItem="Dds-H9-ODr" secondAttribute="height" id="W8j-cb-2QP"/>
+                            <constraint firstItem="dWL-AL-6Pr" firstAttribute="centerY" secondItem="x73-pX-NAd" secondAttribute="centerY" id="WQp-JP-pjQ"/>
                             <constraint firstItem="DP5-EF-tIE" firstAttribute="top" secondItem="x73-pX-NAd" secondAttribute="bottom" id="YHN-Wu-RmU"/>
-                            <constraint firstAttribute="bottom" secondItem="k4h-OZ-a59" secondAttribute="bottom" constant="44" id="YhD-nb-Lwy"/>
+                            <constraint firstItem="k4h-OZ-a59" firstAttribute="top" secondItem="x73-pX-NAd" secondAttribute="bottom" constant="215" id="aIe-JV-43K"/>
+                            <constraint firstItem="sL8-Q4-LZ3" firstAttribute="centerY" secondItem="Dds-H9-ODr" secondAttribute="centerY" id="ecK-A3-o5O"/>
+                            <constraint firstItem="k4h-OZ-a59" firstAttribute="top" secondItem="6cd-o6-TeM" secondAttribute="bottom" id="k7s-s7-UBm"/>
+                            <constraint firstItem="Rpy-pl-3ca" firstAttribute="centerY" secondItem="Dds-H9-ODr" secondAttribute="centerY" id="lyR-1h-aIE"/>
                             <constraint firstItem="x73-pX-NAd" firstAttribute="width" secondItem="iEX-cq-jAW" secondAttribute="width" multiplier="1:3" id="sF2-6c-UWA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qho-1V-F7j" secondAttribute="trailing" id="uWU-Xr-gPP"/>
+                            <constraint firstItem="Dds-H9-ODr" firstAttribute="leading" secondItem="dWL-AL-6Pr" secondAttribute="trailing" id="v9I-6J-bLO"/>
+                            <constraint firstItem="6cd-o6-TeM" firstAttribute="top" secondItem="iEX-cq-jAW" secondAttribute="bottom" id="x3b-74-iDv"/>
                             <constraint firstItem="qho-1V-F7j" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yDq-A1-HZ6"/>
+                            <constraint firstItem="Dds-H9-ODr" firstAttribute="centerY" secondItem="dWL-AL-6Pr" secondAttribute="centerY" id="zoe-Jq-LJr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="detailedButtonSelection" destination="6iN-DJ-ZKo" id="D7H-iW-3q7"/>
                         <outlet property="listCurrencyCodeDropDownView" destination="DP5-EF-tIE" id="XfP-iP-kLj"/>
+                        <outlet property="listCurrencyRateTopSpace" destination="aIe-JV-43K" id="Z7T-0V-7v5"/>
                         <outlet property="listCurrencyRateView" destination="k4h-OZ-a59" id="hBG-9j-a1s"/>
                         <outlet property="loadingIndicator" destination="Zz2-Y0-w63" id="lmg-2w-7RR"/>
                         <outlet property="loadingLabel" destination="Dsz-QD-XmU" id="S0J-J4-8JB"/>
                         <outlet property="loadingView" destination="qho-1V-F7j" id="soZ-HS-2z4"/>
                         <outlet property="loadingViewTopConstraint" destination="yDq-A1-HZ6" id="uYC-gA-aTT"/>
+                        <outlet property="simpleButtonSelection" destination="1Y5-1m-Gtx" id="pm3-VK-7Wg"/>
+                        <outlet property="switchViewBot" destination="sL8-Q4-LZ3" id="bLY-Gp-gZR"/>
+                        <outlet property="switchViewTop" destination="Dds-H9-ODr" id="Q14-6M-JYJ"/>
                         <outlet property="topSourceCurrencyCode" destination="eyu-7a-RP6" id="2MF-Dz-kon"/>
                         <outlet property="topSourceCurrencyDescription" destination="J7z-VB-38q" id="8jc-Op-QRX"/>
                         <outlet property="topSourceCurrencyDescriptionContainer" destination="iEX-cq-jAW" id="SJb-mk-jlL"/>
@@ -161,6 +244,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="40.799999999999997" y="25.637181409295355"/>
         </scene>
     </scenes>
 </document>
