@@ -9,7 +9,6 @@
 import UIKit
 
 class DashboardViewController: UIViewController {
-  
   @IBOutlet private weak var topSourceCurrencyDescription:UILabel!
   @IBOutlet private weak var topSourceCurrencyDescriptionContainer:UIView!
   @IBOutlet private weak var topSourceCurrencyCode:UILabel!
@@ -22,14 +21,25 @@ class DashboardViewController: UIViewController {
   @IBOutlet private weak var loadingIndicator:UIActivityIndicatorView!
   @IBOutlet private weak var loadingViewTopConstraint:NSLayoutConstraint!
   @IBOutlet private weak var listCurrencyRateTopSpace:NSLayoutConstraint!
+  @IBOutlet private weak var listCurrencyRateHeight:NSLayoutConstraint!
   @IBOutlet private weak var simpleButtonSelection:UIButton!
   @IBOutlet private weak var detailedButtonSelection:UIButton!
   @IBOutlet private weak var switchViewTop:SwitchView!
   @IBOutlet private weak var switchViewBot:SwitchView!
+  @IBOutlet private weak var settingButton:UIButton!
   
   private var viewModel:DashboardViewModel!
-  private var constantTopCurrency:CGFloat {
-    return UIScreen.main.bounds.size.height - 444
+  private var interfaceType:InterfaceType!{
+    return viewModel.interfaceType
+  }
+  
+  override var preferredStatusBarStyle: UIStatusBarStyle{
+    return UIStatusBarStyle.lightContent
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
   }
   
   override func viewDidLoad() {
@@ -37,6 +47,7 @@ class DashboardViewController: UIViewController {
     
     viewModel = DashboardViewModel(clientApi: ClientApiCallService.shared)
     viewModel.delegate = self
+    viewModel.changeInterfaceType(.simple)
     
     if let root = ClientApiCallService.shared.config{
       if let refreshRate = root.value(forKey: "refresh_rate") as? String {
@@ -47,7 +58,7 @@ class DashboardViewController: UIViewController {
       }
     }
     
-    listCurrencyRateTopSpace.constant = constantTopCurrency
+    listCurrencyRateTopSpace.constant = interfaceType.getTop
     
     loadingLabel.configure {
       $0.text = "FETCH_LIST".localized
@@ -94,6 +105,11 @@ class DashboardViewController: UIViewController {
       $0.layer.borderColor = UIColor.black.cgColor
       $0.setTitle("DETAILED_SELECTION_BUTTON_TITLE".localized, for: .normal)
     }
+    settingButton.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+      $0.setTitle("SETTINGS".localized, for: .normal)
+    }
     switchViewTop.isHidden = false
     switchViewBot.isHidden = true
   }
@@ -107,9 +123,25 @@ class DashboardViewController: UIViewController {
   }
   
   @IBAction func tapSimpleType(_ btn:UIButton){
-    switchViewTop.isHidden = btn.tag == 1 ? true : false
-    switchViewBot.isHidden = btn.tag == 0 ? true : false
+    if btn.tag == 1 {
+      switchViewTop.isHidden = true
+      switchViewBot.isHidden = false
+      viewModel.changeInterfaceType(.detailed)
+    }else{
+      switchViewTop.isHidden = false
+      switchViewBot.isHidden = true
+      viewModel.changeInterfaceType(.simple)
+    }
+    UIView.animate(withDuration: 0.3, animations: {
+      [weak self] in
+      guard let _self = self else { return }
+      _self.listCurrencyRateTopSpace.constant = _self.interfaceType.getTop
+      _self.listCurrencyRateHeight.constant = _self.interfaceType.getHeight
+      _self.listCurrencyRateView.reloadData()
+      _self.view.layoutIfNeeded()
+    })
   }
+  
 }
 
 extension DashboardViewController:UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -124,7 +156,7 @@ extension DashboardViewController:UICollectionViewDelegate, UICollectionViewDele
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let _cell  = collectionView.dequeue(CurrencyRateCellCollectionViewCell.self, for: indexPath)
-    _cell?.bind((name: viewModel.currencyRateItems[indexPath.section].items[indexPath.row].code, rate:"\(viewModel.currencyRateItems[indexPath.section].items[indexPath.row].rate ?? 0)"))
+    _cell?.bind((name: viewModel.currencyRateItems[indexPath.section].items[indexPath.row].code, rate:"\(viewModel.currencyRateItems[indexPath.section].items[indexPath.row].rate ?? 0)", type: viewModel.currencyRateItems[indexPath.section].items[indexPath.row].type))
     return _cell!
   }
   

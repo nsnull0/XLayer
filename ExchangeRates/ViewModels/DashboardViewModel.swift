@@ -11,9 +11,14 @@ import UIKit
 import CoreData
 
 struct CurrencyItemCode {
+  enum ItemType {
+    case normal
+    case nothing
+  }
   var code: String
   var description: String
   var rate: Double?
+  var type: ItemType = .normal
 }
 
 struct CurrencyItemRate {
@@ -22,6 +27,27 @@ struct CurrencyItemRate {
 
 protocol DashboardViewModelDelegate:class {
   func fetchStatus(_ v: DashboardViewModel.FetchStatus)
+}
+
+enum InterfaceType {
+  case simple
+  case detailed
+  var getHeight:CGFloat {
+    switch self {
+    case .simple:
+      return 212
+    case .detailed:
+      return 76
+    }
+  }
+  var getTop:CGFloat {
+    switch self {
+    case .simple:
+      return UIScreen.main.bounds.size.height - 444
+    case .detailed:
+      return 60
+    }
+  }
 }
 
 class DashboardViewModel {
@@ -59,6 +85,7 @@ class DashboardViewModel {
   }
   private var source:String = ""
   private var description:String = ""
+  private(set) var interfaceType:InterfaceType = .simple
   
   init(clientApi: ClientApiCallService) {
     loadingCombos = 2
@@ -100,8 +127,42 @@ class DashboardViewModel {
     }else{
       delegate?.fetchStatus(.errorConfig)
     }
-    
-    
+  }
+  
+  func changeInterfaceType(_ value: InterfaceType){
+    interfaceType = value
+    switch interfaceType {
+    case .simple:
+      currencyRateItems = currencyRateItems.reduce([], { (result, section) -> [CurrencyItemRate] in
+        var _result = result
+        for item in section.items {
+          if let _last = _result.last {
+            if _last.items.count == 0 || _last.items.count == 3  {
+              let itemRate = CurrencyItemRate(items: [item])
+              _result.append(itemRate)
+            }else if _last.items.count < 3 {
+              var items = _last.items
+              items.append(item)
+              let itemRate = CurrencyItemRate(items: items)
+              _result[_result.count - 1] = itemRate
+            }
+          }else {
+            let itemRate = CurrencyItemRate(items: [item])
+            _result.append(itemRate)
+          }
+        }
+        return _result
+      })
+    case .detailed:
+      currencyRateItems = currencyRateItems.reduce([], { (result, section) -> [CurrencyItemRate] in
+        var _result = result
+        for item in section.items {
+          let itemRate = CurrencyItemRate(items: [item])
+          _result.append(itemRate)
+        }
+        return _result
+      })
+    }
   }
   
   func refresh(clientApi: ClientApiCallService, selectedSource: String){
@@ -158,23 +219,31 @@ class DashboardViewModel {
         for item in getUpdatedCore {
           let item = CurrencyItemCode(code: item.currency_id!,
                                       description: item.currency_description ?? "",
-                                      rate: item.currency_rate)
+                                      rate: item.currency_rate, type: .normal)
           tempCodeItems.append(item)
         }
+        let itemNothingType = CurrencyItemCode(code: "", description: "", rate: nil, type: .nothing)
+        tempCodeItems.append(contentsOf: [itemNothingType, itemNothingType, itemNothingType])
         _self.currencyCodeItems = tempCodeItems
         let currencyRateItems = _self.currencyCodeItems.reduce([]) { (result, current) -> [CurrencyItemRate] in
           var _result = result
-          if let _last = _result.last {
-            if _last.items.count == 0 || _last.items.count == 3  {
+          switch _self.interfaceType {
+          case .simple:
+            if let _last = _result.last {
+              if _last.items.count == 0 || _last.items.count == 3  {
+                let itemRate = CurrencyItemRate(items: [current])
+                _result.append(itemRate)
+              }else if _last.items.count < 3 {
+                var items = _last.items
+                items.append(current)
+                let itemRate = CurrencyItemRate(items: items)
+                _result[_result.count - 1] = itemRate
+              }
+            }else {
               let itemRate = CurrencyItemRate(items: [current])
               _result.append(itemRate)
-            }else if _last.items.count < 3 {
-              var items = _last.items
-              items.append(current)
-              let itemRate = CurrencyItemRate(items: items)
-              _result[_result.count - 1] = itemRate
             }
-          }else {
+          case .detailed:
             let itemRate = CurrencyItemRate(items: [current])
             _result.append(itemRate)
           }

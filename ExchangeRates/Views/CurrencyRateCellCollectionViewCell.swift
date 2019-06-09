@@ -23,9 +23,10 @@ class CurrencyRateCellCollectionViewCell: UICollectionViewCell {
     }
   }
   
-  func bind(_ data: (name: String, rate: String)){
+  func bind(_ data: (name: String, rate: String, type: CurrencyItemCode.ItemType)){
     nameLabel.text = "\("name:".localized) \(data.name)"
     rateLabel.text = "\("rate:".localized) \(data.rate)"
+    container.isHidden = data.type == .nothing
   }
   
 }
