@@ -22,15 +22,26 @@ class DashboardViewController: UIViewController {
   @IBOutlet private weak var loadingViewTopConstraint:NSLayoutConstraint!
   @IBOutlet private weak var listCurrencyRateTopSpace:NSLayoutConstraint!
   @IBOutlet private weak var listCurrencyRateHeight:NSLayoutConstraint!
+  @IBOutlet private weak var detailedInformationContainerHeight:NSLayoutConstraint!
+  @IBOutlet private weak var detailedInformationContainerBottom:NSLayoutConstraint!
+  @IBOutlet private weak var inputDetailRateContainerBottom:NSLayoutConstraint!
+  @IBOutlet private weak var statusBarHeight:NSLayoutConstraint!
+  @IBOutlet private weak var detailedInformationContainer:UIView!
   @IBOutlet private weak var simpleButtonSelection:UIButton!
   @IBOutlet private weak var detailedButtonSelection:UIButton!
   @IBOutlet private weak var switchViewTop:SwitchView!
   @IBOutlet private weak var switchViewBot:SwitchView!
   @IBOutlet private weak var settingButton:UIButton!
+  @IBOutlet private weak var inputDetailedRate:UITextField!
+  @IBOutlet private weak var inputDetailedRateContainer:UIView!
+  @IBOutlet private weak var currentInterfaceTypeDescription: UILabel!
   
   private var viewModel:DashboardViewModel!
   private var interfaceType:InterfaceType!{
     return viewModel.interfaceType
+  }
+  private var hasTopnotch:Bool {
+    return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
   }
   
   override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -110,6 +121,27 @@ class DashboardViewController: UIViewController {
       $0.layer.borderWidth = 1
       $0.setTitle("SETTINGS".localized, for: .normal)
     }
+    detailedInformationContainer.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+    }
+    inputDetailedRateContainer.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+    }
+    inputDetailedRate.configure{
+      $0.keyboardType = UIKeyboardType.alphabet
+      $0.autocorrectionType = UITextAutocorrectionType.no
+      $0.autocapitalizationType = .allCharacters
+      $0.backgroundColor = .clear
+      $0.delegate = self
+      $0.placeholder = "QUICK_SEARCH".localized
+    }
+    currentInterfaceTypeDescription.text = viewModel.interfaceType.getDescription
+    inputDetailRateContainerBottom.constant = viewModel.interfaceType.getBottomDetailedInput
+    detailedInformationContainerBottom.constant = viewModel.interfaceType.getBottomDetailedContainer
+    detailedInformationContainerHeight.constant = viewModel.interfaceType.getHeightDetailedContainer
+    statusBarHeight.constant = hasTopnotch ? 44 : 20
     switchViewTop.isHidden = false
     switchViewBot.isHidden = true
   }
@@ -132,11 +164,15 @@ class DashboardViewController: UIViewController {
       switchViewBot.isHidden = true
       viewModel.changeInterfaceType(.simple)
     }
+    currentInterfaceTypeDescription.text = viewModel.interfaceType.getDescription
     UIView.animate(withDuration: 0.3, animations: {
       [weak self] in
       guard let _self = self else { return }
       _self.listCurrencyRateTopSpace.constant = _self.interfaceType.getTop
       _self.listCurrencyRateHeight.constant = _self.interfaceType.getHeight
+      _self.detailedInformationContainerBottom.constant = _self.viewModel.interfaceType.getBottomDetailedContainer
+      _self.detailedInformationContainerHeight.constant = _self.viewModel.interfaceType.getHeightDetailedContainer
+      _self.inputDetailRateContainerBottom.constant = _self.viewModel.interfaceType.getBottomDetailedInput
       _self.listCurrencyRateView.reloadData()
       _self.view.layoutIfNeeded()
     })
@@ -277,5 +313,12 @@ extension DashboardViewController: UIScrollViewDelegate {
     default:
       break
     }
+  }
+}
+
+extension DashboardViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return false
   }
 }

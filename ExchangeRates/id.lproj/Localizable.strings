@@ -12,3 +12,6 @@
 "FETCH_LIST" = "Memulai pengambilan list";
 "DETAILED_SELECTION_BUTTON_TITLE" = "Detil";
 "SIMPLE_SELECTION_BUTTON_TITLE" = "Sederhana";
+"DETAILED_SELECTION_DESCRIPTION" = "Informasi Detil dari Currency";
+"SIMPLE_SELECTION_DESCRIPTION" = "Informasi Sederhana dari Currency";
+"QUICK_SEARCH" = "Contoh: USD";

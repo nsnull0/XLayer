@@ -43,9 +43,41 @@ enum InterfaceType {
   var getTop:CGFloat {
     switch self {
     case .simple:
-      return UIScreen.main.bounds.size.height - 444
+      return UIScreen.main.bounds.size.height - 484
     case .detailed:
       return 60
+    }
+  }
+  var getHeightDetailedContainer:CGFloat {
+    switch self {
+    case .simple:
+      return 1
+    case .detailed:
+      return 120
+    }
+  }
+  var getBottomDetailedContainer:CGFloat {
+    switch self {
+    case .simple:
+      return 20
+    case .detailed:
+      return 44
+    }
+  }
+  var getBottomDetailedInput:CGFloat {
+    switch self {
+    case .simple:
+      return -54
+    case .detailed:
+      return 0
+    }
+  }
+  var getDescription:String {
+    switch self {
+    case .simple:
+      return "SIMPLE_SELECTION_DESCRIPTION".localized
+    case .detailed:
+      return "DETAILED_SELECTION_DESCRIPTION".localized
     }
   }
 }
