@@ -31,6 +31,7 @@
 		C19A223222748C7C000F9B99 /* ClientApiCallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A223122748C7C000F9B99 /* ClientApiCallService.swift */; };
 		C19A2234227494F5000F9B99 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A2233227494F5000F9B99 /* RequestModel.swift */; };
 		C19A22362274B4EC000F9B99 /* RequestCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A22352274B4EC000F9B99 /* RequestCaller.swift */; };
+		C1C0A46822B3F09F00C07D21 /* DetailedInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C0A46722B3F09F00C07D21 /* DetailedInfoLabel.swift */; };
 		C1EEECE02274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EEECDE2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift */; };
 		C1EEECE12274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1EEECDF2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib */; };
 		C1EEECE32274D9A00004D783 /* UICollectionView_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EEECE22274D9A00004D783 /* UICollectionView_Extension.swift */; };
@@ -87,6 +88,7 @@
 		C19A223122748C7C000F9B99 /* ClientApiCallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApiCallService.swift; sourceTree = "<group>"; };
 		C19A2233227494F5000F9B99 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 		C19A22352274B4EC000F9B99 /* RequestCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCaller.swift; sourceTree = "<group>"; };
+		C1C0A46722B3F09F00C07D21 /* DetailedInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoLabel.swift; sourceTree = "<group>"; };
 		C1EEECDE2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		C1EEECDF2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyRateCellCollectionViewCell.xib; sourceTree = "<group>"; };
 		C1EEECE22274D9A00004D783 /* UICollectionView_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView_Extension.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				C1EEECDE2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.swift */,
 				C1EEECDF2274D83B0004D783 /* CurrencyRateCellCollectionViewCell.xib */,
 				C1FA668B22AC12B300B99C15 /* SwitchView.swift */,
+				C1C0A46722B3F09F00C07D21 /* DetailedInfoLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				C19A222E2274897C000F9B99 /* NibLoadableViewProtocol.swift in Sources */,
 				C19A21E1227470B2000F9B99 /* AppDelegate.swift in Sources */,
 				C19A222C2274891C000F9B99 /* UITableview_Extension.swift in Sources */,
+				C1C0A46822B3F09F00C07D21 /* DetailedInfoLabel.swift in Sources */,
 				C19A2234227494F5000F9B99 /* RequestModel.swift in Sources */,
 				C19A221B2274751C000F9B99 /* DashboardResponseModel.swift in Sources */,
 				C19A221822747490000F9B99 /* DashboardViewModel.swift in Sources */,
