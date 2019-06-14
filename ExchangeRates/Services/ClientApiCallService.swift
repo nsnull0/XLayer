@@ -206,6 +206,27 @@ class ClientApiCallService {
       })
     }
   }
+  
+  func getSpesificConversionCurrency(from sourceCurrency:String = "USD",
+                                     to targetCurrency:String = "GBP",
+                                     amount:String = "1",
+                                     completion: @escaping (ResultFetch<DashboardResponseModel, Int>) -> Void){
+    if let _baseUrl:String = config.value(forKey: "base_url") as? String ,
+      let _accessKey:String = apiParam.value(forKey: "secret_key") as? String {
+      let requestModel = RequestModel(baseUrl: _baseUrl,
+                                      httpMethod: .get,
+                                      path: "convert",
+                                      query: ["Access_key": _accessKey,
+                                              "from": sourceCurrency,
+                                              "to": targetCurrency,
+                                              "amount": amount])
+      caller.fetch(requestModel.asURLRequest(),
+                   completion: {
+                    (result: ResultFetch<DashboardResponseModel, Int>) in
+                    completion(result)
+      })
+    }
+  }
 }
 
 

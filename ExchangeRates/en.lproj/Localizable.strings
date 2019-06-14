@@ -15,3 +15,4 @@
 "DETAILED_SELECTION_DESCRIPTION" = "Detailed Information of Currency";
 "SIMPLE_SELECTION_DESCRIPTION" = "Simple Information of Currency";
 "QUICK_SEARCH" = "for ex: USD";
+"RATE_TITLE" = "Rate";

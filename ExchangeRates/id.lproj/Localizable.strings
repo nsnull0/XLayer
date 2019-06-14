@@ -15,3 +15,4 @@
 "DETAILED_SELECTION_DESCRIPTION" = "Informasi Detil dari Currency";
 "SIMPLE_SELECTION_DESCRIPTION" = "Informasi Sederhana dari Currency";
 "QUICK_SEARCH" = "Contoh: USD";
+"RATE_TITLE" = "Rate";

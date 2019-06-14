@@ -35,6 +35,11 @@ class DashboardViewController: UIViewController {
   @IBOutlet private weak var inputDetailedRate:UITextField!
   @IBOutlet private weak var inputDetailedRateContainer:UIView!
   @IBOutlet private weak var currentInterfaceTypeDescription: UILabel!
+  @IBOutlet private weak var currencyConversionTitleLabel:UILabel!
+  @IBOutlet private weak var currencyConversionSourceLabel:UILabel!
+  @IBOutlet private weak var currencyConversionQuoteLabel:UILabel!
+  @IBOutlet private weak var currencyConversionAmountLabel:UILabel!
+  @IBOutlet private weak var currencyConversionResultLabel:UILabel!
   
   private var viewModel:DashboardViewModel!
   private var interfaceType:InterfaceType!{
@@ -137,6 +142,32 @@ class DashboardViewController: UIViewController {
       $0.delegate = self
       $0.placeholder = "QUICK_SEARCH".localized
     }
+    currencyConversionQuoteLabel.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+      $0.backgroundColor = UIColor.white
+    }
+    currencyConversionTitleLabel.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+      $0.backgroundColor = UIColor.white
+    }
+    currencyConversionAmountLabel.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+      $0.backgroundColor = UIColor.white
+    }
+    currencyConversionResultLabel.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+      $0.backgroundColor = UIColor.white
+    }
+    currencyConversionSourceLabel.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+      $0.backgroundColor = UIColor.white
+    }
+    currencyConversionAmountLabel.configure
     currentInterfaceTypeDescription.text = viewModel.interfaceType.getDescription
     inputDetailRateContainerBottom.constant = viewModel.interfaceType.getBottomDetailedInput
     detailedInformationContainerBottom.constant = viewModel.interfaceType.getBottomDetailedContainer
@@ -282,6 +313,19 @@ extension DashboardViewController:DashboardViewModelDelegate {
       topSourceCurrencyCode.text = source
       topSourceCurrencyDescription.text = description
       listCurrencyCodeDropDownView.reloadData()
+    case .conversionContent(let result,
+                              let dateValue,
+                              let target,
+                              let quote,
+                              let amount):
+      DispatchQueue.main.async {
+        [weak self] in
+        self?.currencyConversionTitleLabel.text = "\(dateValue)"
+        self?.currencyConversionSourceLabel.text = "\(target)"
+        self?.currencyConversionQuoteLabel.text = "\("RATE_TITLE".localized) \(quote)"
+        self?.currencyConversionAmountLabel.text = "\(amount)"
+        self?.currencyConversionResultLabel.text = "\(result)"
+      }
     case .readyToShowRateList:
       listCurrencyRateView.reloadData()
     }

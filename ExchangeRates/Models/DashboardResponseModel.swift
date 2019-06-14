@@ -18,6 +18,9 @@ struct DashboardResponseModel:Codable {
   var sourceCurrency: String?
   var currencyQuotes: [String : Double]?
   var currencyCodeList: [String : String]?
+  var resultQuery: Double?
+  var dashboardQuery: DashboardDetailedQueryInfo?
+  var dashboardQueryInfo: DashboardDetailedInfo?
   
   enum CodingKeys: String, CodingKey {
     case successFlag = "success"
@@ -29,6 +32,31 @@ struct DashboardResponseModel:Codable {
     case sourceCurrency = "source"
     case currencyQuotes = "quotes"
     case currencyCodeList = "currencies"
+    case resultQuery = "result"
+    case dashboardQuery = "query"
+    case dashboardQueryInfo = "info"
+  }
+}
+
+struct DashboardDetailedQueryInfo: Codable {
+  var currencyFrom:String
+  var currencyTo:String
+  var amount:Double
+  
+  enum CodingKeys: String, CodingKey {
+    case currencyFrom = "from"
+    case currencyTo = "to"
+    case amount
+  }
+}
+
+struct DashboardDetailedInfo: Codable {
+  var timeDate:Double
+  var quote:Double
+  
+  enum CodingKeys: String, CodingKey {
+    case timeDate = "timestamp"
+    case quote
   }
 }
 
@@ -46,6 +74,12 @@ extension DashboardResponseModel {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "YYYY-MM-dd"
     let date = Date.init(timeIntervalSince1970: lastDate ?? 0)
+    return "\(dateFormatter.string(from: date))"
+  }
+  var getCurrencyConversionTimeStampForUI:String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "YYYY, MMM dd"
+    let date = Date.init(timeIntervalSince1970: dashboardQueryInfo?.timeDate ?? 0)
     return "\(dateFormatter.string(from: date))"
   }
 }

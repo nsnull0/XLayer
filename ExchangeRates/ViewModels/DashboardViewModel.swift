@@ -90,6 +90,7 @@ class DashboardViewModel {
     case completed
     case readyToShowCodeList(_ source:String, description:String)
     case readyToShowRateList
+    case conversionContent(_ result:Double, dateValue: String, target:String, quote:Double, amount:Double)
     case error(statusCode: Int)
     case errorConfig
   }
@@ -156,9 +157,32 @@ class DashboardViewModel {
                               break
                             }
       })
+      clientApi.getSpesificConversionCurrency(from: _sourceRate, completion: {
+        [weak self] result in
+        guard let _self = self else { return }
+        switch result {
+        case .failure(let statusCode):
+          _self.delegate?.fetchStatus(.error(statusCode: statusCode))
+        case .successful(let objs):
+          let resultCurrency:Double = objs.resultQuery ?? 0
+          let targetCurrency:String = objs.dashboardQuery?.currencyTo ?? ""
+          let quoteConversion:Double = objs.dashboardQueryInfo?.quote ?? 0
+          let dateConversion:String = objs.getCurrencyConversionTimeStampForUI
+          let amountConversion:Double = objs.dashboardQuery?.amount ?? 0
+          _self.delegate?.fetchStatus(.conversionContent(resultCurrency,
+                                                         dateValue: dateConversion,
+                                                         target: targetCurrency,
+                                                         quote: quoteConversion,
+                                                         amount: amountConversion))
+        case .none:
+          break
+        }
+      })
     }else{
       delegate?.fetchStatus(.errorConfig)
     }
+    
+    
   }
   
   func changeInterfaceType(_ value: InterfaceType){
@@ -223,6 +247,27 @@ class DashboardViewModel {
                             case .successful(_), .none:
                               break
                             }
+      })
+      clientApi.getSpesificConversionCurrency(from: _sourceRate, completion: {
+        [weak self] result in
+        guard let _self = self else { return }
+        switch result {
+        case .failure(let statusCode):
+          _self.delegate?.fetchStatus(.error(statusCode: statusCode))
+        case .successful(let objs):
+          let resultCurrency:Double = objs.resultQuery ?? 0
+          let targetCurrency:String = objs.dashboardQuery?.currencyTo ?? ""
+          let quoteConversion:Double = objs.dashboardQueryInfo?.quote ?? 0
+          let dateConversion:String = objs.getCurrencyConversionTimeStampForUI
+          let amountConversion:Double = objs.dashboardQuery?.amount ?? 0
+          _self.delegate?.fetchStatus(.conversionContent(resultCurrency,
+                                                         dateValue: dateConversion,
+                                                         target: targetCurrency,
+                                                         quote: quoteConversion,
+                                                         amount: amountConversion))
+        case .none:
+          break
+        }
       })
     }else{
       delegate?.fetchStatus(.errorConfig)

@@ -146,5 +146,34 @@ class ExchangeRatesTests: XCTestCase {
     
     wait(for: [expectation, expectation2], timeout: 10.0)
   }
+  
+  func testClientServiceToCallConversion() {
+    let clientService = ClientApiCallService.shared
+    let expectation = XCTestExpectation(description: "test call Rate api")
+    
+    clientService.getSpesificConversionCurrency(completion: {
+      result in
+      switch result {
+      case .failure(let statusCode):
+        XCTAssert(statusCode > -1)
+        XCTAssert(statusCode != 200)
+        XCTAssert(statusCode != 1)
+      case .successful(let obj):
+        XCTAssertTrue(obj.successFlag)
+        XCTAssertNotNil(obj.resultQuery)
+        XCTAssertNotNil(obj.dashboardQueryInfo)
+        XCTAssertNotNil(obj.dashboardQuery)
+        if let _query = obj.dashboardQuery {
+          XCTAssertTrue(_query.currencyFrom == "USD")
+          XCTAssertTrue(_query.currencyTo == "GBP")
+        }
+      case .none:
+        break
+      }
+      expectation.fulfill()
+    })
+    
+    wait(for: [expectation], timeout: 10)
+  }
 
 }
