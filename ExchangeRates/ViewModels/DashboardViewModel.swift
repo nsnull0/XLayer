@@ -53,7 +53,7 @@ enum InterfaceType {
     case .simple:
       return 1
     case .detailed:
-      return 120
+      return 160
     }
   }
   var getBottomDetailedContainer:CGFloat {
@@ -64,12 +64,20 @@ enum InterfaceType {
       return 44
     }
   }
-  var getBottomDetailedInput:CGFloat {
+  var getBottomDetailedInputContainer:CGFloat {
     switch self {
     case .simple:
       return -54
     case .detailed:
       return 0
+    }
+  }
+  var getTopConversionInputAmount:CGFloat {
+    switch self {
+    case .simple:
+      return -70
+    case .detailed:
+      return 10
     }
   }
   var getDescription:String {
@@ -119,6 +127,7 @@ class DashboardViewModel {
   private var source:String = ""
   private var description:String = ""
   private(set) var interfaceType:InterfaceType = .simple
+  var cachedInputAmountAndTarget:(amount:String, target:String) = (amount : "1", target: "GBP")
   
   init(clientApi: ClientApiCallService) {
     loadingCombos = 2
@@ -221,16 +230,18 @@ class DashboardViewModel {
     }
   }
   
-  func refresh(clientApi: ClientApiCallService, selectedSource: String){
-    if let _apiParam = clientApi.apiParam {
-      let data:NSMutableDictionary = NSMutableDictionary(dictionary: _apiParam)
-      data.setValue(selectedSource, forKey: "source")
-      do {
-        try data.write(to: clientApi.documentAPIParamsDirectory())
-      }catch {
-        print("error write \(error)")
+  func refresh(clientApi: ClientApiCallService, selectedSource: String = ""){
+    if selectedSource.count > 0 {
+      if let _apiParam = clientApi.apiParam {
+        let data:NSMutableDictionary = NSMutableDictionary(dictionary: _apiParam)
+        data.setValue(selectedSource, forKey: "source")
+        do {
+          try data.write(to: clientApi.documentAPIParamsDirectory())
+        }catch {
+          print("error write \(error)")
+        }
+        _ = clientApi.refresh()
       }
-      _ = clientApi.refresh()
     }
     if let _sourceRate = clientApi.apiParam.value(forKey: "source") as? String {
       loadingCombos = 1
@@ -248,7 +259,9 @@ class DashboardViewModel {
                               break
                             }
       })
-      clientApi.getSpesificConversionCurrency(from: _sourceRate, completion: {
+      clientApi.getSpesificConversionCurrency(from: _sourceRate,
+                                              to: cachedInputAmountAndTarget.target,
+                                              amount: cachedInputAmountAndTarget.amount, completion: {
         [weak self] result in
         guard let _self = self else { return }
         switch result {

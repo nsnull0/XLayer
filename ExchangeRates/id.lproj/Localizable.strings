@@ -15,4 +15,7 @@
 "DETAILED_SELECTION_DESCRIPTION" = "Informasi Detil dari Currency";
 "SIMPLE_SELECTION_DESCRIPTION" = "Informasi Sederhana dari Currency";
 "QUICK_SEARCH" = "Contoh: USD";
+"INPUT_AMOUNT" = "Contoh: 100";
 "RATE_TITLE" = "Rate";
+"DONE" = "Selesai";
+"CANCEL" = "Batal";

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C10DFDC922ABCBBA00032B3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C10DFDCB22ABCBBA00032B3F /* Localizable.strings */; };
+		C161C8D322B51984007A51AA /* UITextField_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C161C8D222B51984007A51AA /* UITextField_Extension.swift */; };
 		C19A21E1227470B2000F9B99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A21E0227470B2000F9B99 /* AppDelegate.swift */; };
 		C19A21E3227470B2000F9B99 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A21E2227470B2000F9B99 /* DashboardViewController.swift */; };
 		C19A21E6227470B2000F9B99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C19A21E4227470B2000F9B99 /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 		C10DFDCA22ABCBBA00032B3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C10DFDCC22ABCBD600032B3F /* ExchangeRates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExchangeRates.entitlements; sourceTree = "<group>"; };
 		C10DFDCE22ABD38500032B3F /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C161C8D222B51984007A51AA /* UITextField_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField_Extension.swift; sourceTree = "<group>"; };
 		C19A21DD227470B2000F9B99 /* ExchangeRates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExchangeRates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C19A21E0227470B2000F9B99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C19A21E2227470B2000F9B99 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				C19A222F22748A0A000F9B99 /* ReusableViewProtocol.swift */,
 				C19A222D2274897C000F9B99 /* NibLoadableViewProtocol.swift */,
 				C1EEECE22274D9A00004D783 /* UICollectionView_Extension.swift */,
+				C161C8D222B51984007A51AA /* UITextField_Extension.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				C19A222C2274891C000F9B99 /* UITableview_Extension.swift in Sources */,
 				C1C0A46822B3F09F00C07D21 /* DetailedInfoLabel.swift in Sources */,
 				C19A2234227494F5000F9B99 /* RequestModel.swift in Sources */,
+				C161C8D322B51984007A51AA /* UITextField_Extension.swift in Sources */,
 				C19A221B2274751C000F9B99 /* DashboardResponseModel.swift in Sources */,
 				C19A221822747490000F9B99 /* DashboardViewModel.swift in Sources */,
 			);

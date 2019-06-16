@@ -26,6 +26,7 @@ class DashboardViewController: UIViewController {
   @IBOutlet private weak var detailedInformationContainerBottom:NSLayoutConstraint!
   @IBOutlet private weak var inputDetailRateContainerBottom:NSLayoutConstraint!
   @IBOutlet private weak var statusBarHeight:NSLayoutConstraint!
+  @IBOutlet private weak var currencyConversionInputAmountTopSpace:NSLayoutConstraint!
   @IBOutlet private weak var detailedInformationContainer:UIView!
   @IBOutlet private weak var simpleButtonSelection:UIButton!
   @IBOutlet private weak var detailedButtonSelection:UIButton!
@@ -38,8 +39,12 @@ class DashboardViewController: UIViewController {
   @IBOutlet private weak var currencyConversionTitleLabel:UILabel!
   @IBOutlet private weak var currencyConversionSourceLabel:UILabel!
   @IBOutlet private weak var currencyConversionQuoteLabel:UILabel!
-  @IBOutlet private weak var currencyConversionAmountLabel:UILabel!
+  @IBOutlet private weak var currencyConversionAmountContainer:UIView!
+  @IBOutlet private weak var currencyConversionAmountFieldLabel:UILabel!
   @IBOutlet private weak var currencyConversionResultLabel:UILabel!
+  @IBOutlet private weak var currencyConversionInputAmountContainer:UIView!
+  @IBOutlet private weak var currencyConversionInputAmountTextField:UITextField!
+  @IBOutlet private weak var currencyConversionAmountFieldScrollView:UIScrollView!
   
   private var viewModel:DashboardViewModel!
   private var interfaceType:InterfaceType!{
@@ -142,6 +147,15 @@ class DashboardViewController: UIViewController {
       $0.delegate = self
       $0.placeholder = "QUICK_SEARCH".localized
     }
+    currencyConversionInputAmountTextField.configure{
+      $0.keyboardType = UIKeyboardType.numberPad
+      $0.autocorrectionType = UITextAutocorrectionType.no
+      $0.autocapitalizationType = .allCharacters
+      $0.backgroundColor = .clear
+      $0.placeholder = "INPUT_AMOUNT".localized
+      let barButtonDone = UIBarButtonItem(title: "DONE".localized, style: .done, target: self, action: #selector(tapDoneAmount))
+      $0.addCancelAndDoneToolbar(barButtonDone: barButtonDone)
+    }
     currencyConversionQuoteLabel.configure{
       $0.layer.borderColor = UIColor.black.cgColor
       $0.layer.borderWidth = 1
@@ -152,7 +166,7 @@ class DashboardViewController: UIViewController {
       $0.layer.borderWidth = 1
       $0.backgroundColor = UIColor.white
     }
-    currencyConversionAmountLabel.configure{
+    currencyConversionAmountContainer.configure{
       $0.layer.borderColor = UIColor.black.cgColor
       $0.layer.borderWidth = 1
       $0.backgroundColor = UIColor.white
@@ -167,9 +181,18 @@ class DashboardViewController: UIViewController {
       $0.layer.borderWidth = 1
       $0.backgroundColor = UIColor.white
     }
-    currencyConversionAmountLabel.configure
+    currencyConversionInputAmountContainer.configure{
+      $0.layer.borderColor = UIColor.black.cgColor
+      $0.layer.borderWidth = 1
+      $0.backgroundColor = UIColor.white
+    }
+    currencyConversionAmountFieldLabel.configure{
+      $0.text = "1"
+      $0.textAlignment = .center
+    }
     currentInterfaceTypeDescription.text = viewModel.interfaceType.getDescription
-    inputDetailRateContainerBottom.constant = viewModel.interfaceType.getBottomDetailedInput
+    currencyConversionInputAmountTopSpace.constant = viewModel.interfaceType.getTopConversionInputAmount
+    inputDetailRateContainerBottom.constant = viewModel.interfaceType.getBottomDetailedInputContainer
     detailedInformationContainerBottom.constant = viewModel.interfaceType.getBottomDetailedContainer
     detailedInformationContainerHeight.constant = viewModel.interfaceType.getHeightDetailedContainer
     statusBarHeight.constant = hasTopnotch ? 44 : 20
@@ -183,6 +206,18 @@ class DashboardViewController: UIViewController {
   
   @objc private func timerRefresh(){
     _ = ClientApiCallService.shared.refresh()
+  }
+  
+  @objc private func tapDoneAmount() {
+    view.endEditing(true)
+    guard currencyConversionInputAmountTextField.isValidText else {
+      return
+    }
+    let inputRateCount = inputDetailedRate.text?.count ?? 0
+    let inputRate = inputRateCount > 0 ? "\(inputDetailedRate.text!)" : viewModel.cachedInputAmountAndTarget.target
+    viewModel.cachedInputAmountAndTarget = (amount: "\(currencyConversionInputAmountTextField.text ?? "")",
+      target: inputRate)
+    viewModel.refresh(clientApi: ClientApiCallService.shared)
   }
   
   @IBAction func tapSimpleType(_ btn:UIButton){
@@ -203,7 +238,8 @@ class DashboardViewController: UIViewController {
       _self.listCurrencyRateHeight.constant = _self.interfaceType.getHeight
       _self.detailedInformationContainerBottom.constant = _self.viewModel.interfaceType.getBottomDetailedContainer
       _self.detailedInformationContainerHeight.constant = _self.viewModel.interfaceType.getHeightDetailedContainer
-      _self.inputDetailRateContainerBottom.constant = _self.viewModel.interfaceType.getBottomDetailedInput
+      _self.inputDetailRateContainerBottom.constant = _self.viewModel.interfaceType.getBottomDetailedInputContainer
+      _self.currencyConversionInputAmountTopSpace.constant = _self.viewModel.interfaceType.getTopConversionInputAmount
       _self.listCurrencyRateView.reloadData()
       _self.view.layoutIfNeeded()
     })
@@ -323,8 +359,10 @@ extension DashboardViewController:DashboardViewModelDelegate {
         self?.currencyConversionTitleLabel.text = "\(dateValue)"
         self?.currencyConversionSourceLabel.text = "\(target)"
         self?.currencyConversionQuoteLabel.text = "\("RATE_TITLE".localized) \(quote)"
-        self?.currencyConversionAmountLabel.text = "\(amount)"
         self?.currencyConversionResultLabel.text = "\(result)"
+        self?.currencyConversionAmountFieldLabel.text = "\(amount)"
+        let calculateWidth = NSString(string: "\(amount)").boundingRect(with: CGSize.init(width: CGFloat.greatestFiniteMagnitude, height: 30), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium)], context: nil).width
+        self?.currencyConversionAmountFieldScrollView.contentSize = CGSize(width: calculateWidth, height: 30)
       }
     case .readyToShowRateList:
       listCurrencyRateView.reloadData()
@@ -363,6 +401,24 @@ extension DashboardViewController: UIScrollViewDelegate {
 extension DashboardViewController: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
+    guard textField.isValidText else {
+      return false
+    }
+    let inputAmountCount = currencyConversionInputAmountTextField.text?.count ?? 0
+    let inputAmount = inputAmountCount > 0 ? "\(currencyConversionInputAmountTextField.text!)" : viewModel.cachedInputAmountAndTarget.amount
+    viewModel.cachedInputAmountAndTarget = (amount: inputAmount,
+      target: "\(textField.text!)")
+    viewModel.refresh(clientApi: ClientApiCallService.shared)
     return false
+  }
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    switch textField {
+    case inputDetailedRate:
+      return ((textField.text?.count ?? 0) - range.length + string.count) <= 3
+    case currencyConversionInputAmountTextField:
+      return ((textField.text?.count ?? 0) - range.length + string.count) <= 10
+    default:
+      return true
+    }
   }
 }
